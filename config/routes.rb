@@ -1,4 +1,8 @@
 GrowersNation::Application.routes.draw do
+  resources :vegetables
+
+  resources :produces
+
   match '/' => 'locations#index'
   resources :locations
 
