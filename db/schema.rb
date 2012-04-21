@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421135116) do
+ActiveRecord::Schema.define(:version => 20120421145425) do
 
   create_table "locations", :force => true do |t|
     t.string   "name"
@@ -33,8 +33,20 @@ ActiveRecord::Schema.define(:version => 20120421135116) do
     t.integer  "finish"
     t.string   "name"
     t.string   "category"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "start_sowing_week"
+    t.integer  "end_sowing_week"
+    t.integer  "start_planting_out_week"
+    t.integer  "end_planting_out_week"
+    t.integer  "start_harvest_week"
+    t.integer  "end_harvest_week"
+    t.integer  "start_sowing_month"
+    t.integer  "end_sowing_month"
+    t.integer  "start_planting_out_month"
+    t.integer  "end_planting_out_month"
+    t.integer  "start_harvest_month"
+    t.integer  "end_harvest_month"
   end
 
 end

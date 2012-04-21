@@ -17,23 +17,27 @@
 </div>
 
 <div data-role="page" class="page-map" id="page-map" style="width:100%; height:100%;">
-	<div data-role="header" data-position="fixed" id="header">
-		<a href="index.html" data-icon="home" class="ui-btn-left home">Home</a><h2>Growers Nation</h2><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>
-	</div>
+	<div data-role="header" id="map-header" style="display: none;"><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a><h2>Growers Nation</h2></div>
 	
-	<div data-role="content" style="padding: 0;">
+	<div data-role="content" style="padding: 0; height: 100%" class="mapDiv content">
 		<div id="map" style="width:100%; height: 100%;"></div>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" id="toolbar">
-		<a href="index.html" data-icon="home" class="ui-btn-left home">Grow</a>
-	</div>
+	<div data-role="footer" id="map-footer" style="display: none;"><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a></div>
 </div>
 
 <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0; overflow: hidden;}
       #map {width: 100%; height: 100%;}
+      
+      #map-footer {
+      	position: fixed;
+      	width: 100%;
+      	bottom: 0px;
+      	background-color: #000;
+      	height: 40px;
+      }
 </style>
     
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDbm_tgr-6BMbH6BxoG2Sl2U_YAGIESjII&sensor=true">
@@ -44,6 +48,7 @@
 	var map = null;
 	var loc = null;
 	var geocoder = null;
+	var marker = null;
 	
 	$(document).ready(function() {
 		geocoder = new google.maps.Geocoder();
@@ -69,13 +74,33 @@
 	
 	function initMap(lat,lng) {
 		center = new google.maps.LatLng(lat,lng);
-			var myOptions = {
+		var myOptions = {
 			zoom: 14,
 			center: center,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 	
 		map = new google.maps.Map(document.getElementById("map"), myOptions);
+		
+		google.maps.event.addListener(map, 'click', function(e) {
+		    $("#map-header").slideDown();
+		    $("#map-footer").fadeIn();
+		    
+		    if(marker == null) {
+		    	 marker = new google.maps.Marker({
+					position: e.latLng,
+					map: map
+				});
+  			}
+  			else {
+  				marker.setPosition(e.latLng);
+  			}
+		    
+		    window.setTimeout(function() {
+				$("#map-header").slideUp();
+				$("#map-footer").fadeOut();
+			}, 5000);
+		});
 	}
 	
 	function detectBrowser() {
@@ -85,12 +110,12 @@
 		console.log();
 		
 		if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-			mapdivMap.style.width = '100%';
-			mapdivMap.style.height = calculateHeight() + 'px';
+			mapdivMap.style.width = '600';
+			mapdivMap.style.height = '800';
 		} 
 		else {
 			mapdivMap.style.width = '100%';
-			mapdivMap.style.height = calculateHeight() + 'px';
+			mapdivMap.style.height = $(document).height() + 'px';
 		}
 	};
 	
@@ -133,7 +158,23 @@
 		}
 	}
 	
-	function calculateHeight() {
-		return $(window).height() - $("#header").height();
-	}
+	var fixgeometry = function() {
+	    /* Some orientation changes leave the scroll position at something
+	     * that isn't 0,0. This is annoying for user experience. */
+	    scroll(0, 0);
+	
+	    /* Calculate the geometry that our content area should take */
+	    var header = $(".header:visible");
+	    var footer = $(".footer:visible");
+	    var content = $(".content:visible");
+	    var viewport_height = $(window).height();
+	    
+	    var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+	    
+	    /* Trim margin/border/padding height */
+	    content_height -= (content.outerHeight() - content.height());
+	    content.height(content_height);
+	    
+	    return content_height;
+  	}; /* fixgeometry */
 </script>
