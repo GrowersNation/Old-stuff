@@ -60,7 +60,7 @@ class VegetablesController < ApplicationController
     @vegetable = Vegetable.find(params[:id])
 
     respond_to do |format|
-      if @vegetable.update_attributes(params[:vegetable])
+      if @vegetable.update_attributes(params[:vegetable].merge (params[:date]))
         format.html { redirect_to @vegetable, notice: 'Vegetable was successfully updated.' }
         format.json { head :no_content }
       else

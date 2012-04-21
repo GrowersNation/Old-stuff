@@ -1,14 +1,8 @@
+
+
+<div data-role="page"> 
+
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Start:</b>
-  <%= Date::MONTHNAMES[@vegetable.start] %>
-</p>
-
-<p>
-  <b>Finish:</b>
-  <%= Date::MONTHNAMES[@vegetable.finish] %>
-</p>
 
 <p>
   <b>Name:</b>
@@ -33,3 +27,4 @@
 
 <%= link_to 'Edit', edit_vegetable_path(@vegetable) %> |
 <%= link_to 'Back', vegetables_path %>
+</div>
