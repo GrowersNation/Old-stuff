@@ -58,6 +58,8 @@ class VegetablesController < ApplicationController
   # PUT /vegetables/1.json
   def update
     @vegetable = Vegetable.find(params[:id])
+    @vegetable.start = @vegetable.start_sowing_month
+    @vegetable.finish = @vegetable.end_planting_out_month
 
     respond_to do |format|
       if @vegetable.update_attributes(params[:vegetable].merge (params[:date]))
