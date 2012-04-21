@@ -1,0 +1,24 @@
+.monthNav {
+	float: left;
+	width: 20%;
+	display: inline;
+}
+
+.monthNav ul {
+	list-style: none;
+}
+
+.monthNav ul li {
+	
+}
+
+#data {
+	float: right;
+	width: 80%;
+}
+
+.ui-dialog .ui-header, 
+.ui-dialog .ui-content, 
+.ui-dialog .ui-footer { 
+	max-width: 500px;
+}
