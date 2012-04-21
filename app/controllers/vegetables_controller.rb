@@ -40,8 +40,9 @@ class VegetablesController < ApplicationController
   # POST /vegetables
   # POST /vegetables.json
   def create
-    @vegetable = Vegetable.new(params[:vegetable])
-
+    @vegetable = Vegetable.new(params[:vegetable].merge (params[:date]))
+    @vegetable.start = @vegetable.start_sowing_month
+    @vegetable.finish = @vegetable.end_planting_out_month
     respond_to do |format|
       if @vegetable.save
         format.html { redirect_to vegetables_path, notice: 'Vegetable was successfully created.' }
