@@ -1,0 +1,46 @@
+
+<div data-role="footer" class="ui-bar">
+  <%= link_to 'January', "#{vegetables_path}?month=1" %>
+  <%= link_to 'February', "#{vegetables_path}?month=2" %>
+  <%= link_to 'March', "#{vegetables_path}?month=3" %>
+  <%= link_to 'April', "#{vegetables_path}?month=4" %>
+  <%= link_to 'May', "#{vegetables_path}?month=5" %>
+  <%= link_to 'June', "#{vegetables_path}?month=6" %>
+  <%= link_to 'July', "#{vegetables_path}?month=7" %>
+  <%= link_to 'August', "#{vegetables_path}?month=8" %>
+  <%= link_to 'September', "#{vegetables_path}?month=9" %>
+  <%= link_to 'October', "#{vegetables_path}?month=10" %>
+  <%= link_to 'November', "#{vegetables_path}?month=11" %>
+  <%= link_to 'December', "#{vegetables_path}?month=12" %>
+</div>
+
+<h2>Vegetables and Fruit you can plant in <%=  Date::MONTHNAMES[@month] %></h2>
+<table>
+  <tr>
+    <th>Start</th>
+    <th>Finish</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @vegetables.each do |vegetable| %>
+  <tr>
+    <td><%= Date::MONTHNAMES[vegetable.start] %></td>
+    <td><%= Date::MONTHNAMES[vegetable.finish] %></td>
+    <td><%= vegetable.name %></td>
+    <td><%= vegetable.category %></td>
+    <td><%= link_to 'Show', vegetable %></td>
+    <td><%= link_to 'Edit', edit_vegetable_path(vegetable) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<div data-role="footer" class="ui-bar">
+  <%= link_to 'New Vegetable', new_vegetable_path %>
+</div>
+

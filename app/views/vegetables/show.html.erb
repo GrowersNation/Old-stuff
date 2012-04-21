@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start:</b>
+  <%= Date::MONTHNAMES[@vegetable.start] %>
+</p>
+
+<p>
+  <b>Finish:</b>
+  <%= Date::MONTHNAMES[@vegetable.finish] %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @vegetable.name %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @vegetable.category %>
+</p>
+
+
+<%= link_to 'Edit', edit_vegetable_path(@vegetable) %> |
+<%= link_to 'Back', vegetables_path %>

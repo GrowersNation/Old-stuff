@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start: 1
+  finish: 1
+  name: MyString
+  category: MyString
+
+two:
+  start: 1
+  finish: 1
+  name: MyString
+  category: MyString
