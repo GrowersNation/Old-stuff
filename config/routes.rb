@@ -1,4 +1,7 @@
 GrowersNation::Application.routes.draw do
+  match '/' => 'locations#index'
+  resources :locations
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
