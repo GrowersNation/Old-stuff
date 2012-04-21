@@ -1,7 +1,7 @@
-<div data-role="page" class="page-start" id="start" style="width:100%; height:100%;">
+<div data-role="page" class="page-start" id="page-start" style="width:100%; height:100%;">
 	<div data-role="header" data-position="fixed" id="header"><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a><h2>Growers Nation</h2></div>
 	
-	<div data-role="content" style="width:100%; height:100%; padding:0;">
+	<div data-role="content">
 		<form action="" method="post">
 			<div data-role="fieldcontain" class="ui-hide-label">
 				<label for="location">Location:</label>
@@ -16,21 +16,24 @@
 	<div data-role="footer" data-position="fixed" id="toolbar"></div>
 </div>
 
-<div data-role="page" class="page-map" id="map" style="width:100%; height:100%;">
-	<div data-role="header" data-position="fixed" id="header"><a href="index.html" data-icon="home" class="ui-btn-left home">Home</a><h2>Growers Nation</h2><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>
+<div data-role="page" class="page-map" id="page-map" style="width:100%; height:100%;">
+	<div data-role="header" data-position="fixed" id="header">
+		<a href="index.html" data-icon="home" class="ui-btn-left home">Home</a><h2>Growers Nation</h2><a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>
 	</div>
 	
-	<div data-role="content" style="width:100%; height:100%; padding:0;">
-		<div id="map_canvasRoast" style="width:100%; height:100%;"></div>
+	<div data-role="content" style="padding: 0;">
+		<div id="map" style="width:100%; height: 100%;"></div>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" id="toolbar"></div>
+	<div data-role="footer" data-position="fixed" id="toolbar">
+		<a href="index.html" data-icon="home" class="ui-btn-left home">Grow</a>
+	</div>
 </div>
 
 <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0; overflow: hidden;}
-      #map_canvasRoast {width: 100%; }
+      #map {width: 100%; height: 100%;}
 </style>
     
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDbm_tgr-6BMbH6BxoG2Sl2U_YAGIESjII&sensor=true">
@@ -44,6 +47,8 @@
 	
 	$(document).ready(function() {
 		geocoder = new google.maps.Geocoder();
+		
+		$(document).bind("pagechange", onPageChange);
 	
 		$("input[name='locationEntered']").click(function() {
 			loc = $("input[name='location']").val();
@@ -70,55 +75,61 @@
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 	
-		map = new google.maps.Map(document.getElementById("map_canvasRoast"), myOptions);
+		map = new google.maps.Map(document.getElementById("map"), myOptions);
 	}
 	
 	function detectBrowser() {
 		var useragent = navigator.userAgent;
-		var mapdivMap = document.getElementById("map_canvasRoast");
+		var mapdivMap = document.getElementById("map");
 		
 		console.log();
 		
 		if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-			//mapdivMap.style.width = '100%';
-			mapdivMap.style.height = '100%';
+			mapdivMap.style.width = '100%';
+			mapdivMap.style.height = calculateHeight() + 'px';
 		} 
 		else {
-			//mapdivMap.style.width = '100%';
+			mapdivMap.style.width = '100%';
 			mapdivMap.style.height = calculateHeight() + 'px';
 		}
 	};
 	
 	function changeToHome() {
-		$.mobile.changePage($("#start"));
+		$.mobile.changePage($("#page-start"));
 	}
 	
 	function changeToMap() {
-		$.mobile.changePage($("#map"));
+		$.mobile.changePage($("#page-map"));
+	}
 	
-		if(loc != null) {
-			detectBrowser();
-			geocoder.geocode( { 'address': loc}, function(results, status) {
-      			if (status == google.maps.GeocoderStatus.OK) {
-        			initMap(results[0].geometry.location.lat(),results[0].geometry.location.lng());
-        			var marker = new google.maps.Marker({
-            			map: map,
-            			position: results[0].geometry.location
-        			});
-      			} else {
-        			alert("Geocode was not successful for the following reason: " + status);
-      			}
-    		});
-		}
-		else if(navigator.geolocation) {
-			detectBrowser();
-			navigator.geolocation.getCurrentPosition(function(position){
-				initMap(position.coords.latitude,position.coords.longitude);
-			});
-		}
-		else{
-			detectBrowser();
-			initMap(52.636161,-1.133065);
+	function onPageChange(toPage, options) {		
+		var page = options.toPage.attr("id");
+		
+		if(page == "page-map") {
+			if(loc != null) {
+				detectBrowser();
+				geocoder.geocode( { 'address': loc}, function(results, status) {
+	      			if (status == google.maps.GeocoderStatus.OK) {
+	        			initMap(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+	        			var marker = new google.maps.Marker({
+	            			map: map,
+	            			position: results[0].geometry.location
+	        			});
+	      			} else {
+	        			alert("Geocode was not successful for the following reason: " + status);
+	      			}
+	    		});
+			}
+			else if(navigator.geolocation) {
+				detectBrowser();
+				navigator.geolocation.getCurrentPosition(function(position){
+					initMap(position.coords.latitude,position.coords.longitude);
+				});
+			}
+			else{
+				detectBrowser();
+				initMap(52.636161,-1.133065);
+			}
 		}
 	}
 	
