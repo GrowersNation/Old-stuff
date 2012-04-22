@@ -68,19 +68,17 @@
 				</div>
 				<div id="data">
 					<table width="100%">
-						<thead>
-							<tr>
-								<th>
-									Fruits
-								</th>
-								<th>
-									Veg
-								</th>
-								<th>
-									Grain
-								</th>
-							</tr>
-						</thead>
+						<tr>
+							<th>
+								Fruits
+							</th>
+							<th>
+								Veg
+							</th>
+							<th>
+								Grain
+							</th>
+						</tr>
 						<tbody id="food-table">
 						</tbody>
 					</table>
@@ -116,7 +114,7 @@
 						<input type="text" name="name" id="name" data-mini="true" placeholder="name" />
 					</div>
 					
-					<input type="submit" name="addCrop" id="addCrop" value="Add Crop Type" />
+					<input type="submit" name="addCrop" id="addCrop" value="Add Crop" />
 				</form> 
 			</div>
 		</div>
@@ -226,6 +224,9 @@
 					});
 					
 					return false;
+					
+					
+					return false;
 				});
 				
 				$("input[name='addVariety']").click(function() {
@@ -275,7 +276,7 @@
 			function initMap(lat,lng) {
 				center = new google.maps.LatLng(lat,lng);
 				var myOptions = {
-					zoom: 8,
+					zoom: 14,
 					center: center,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				}
@@ -371,6 +372,7 @@
 				}
 				
 				if(page == "page-crop") {
+					alert("test");
 					$.ajax({url: "variety/get.php",
 						dataType: "JSON",
 						success: function(data) {
@@ -381,9 +383,14 @@
 							
 							for (var i = 0; i < data.length; i++) {
 							    if(data[i].crop == "1") {
-								    html = html + "<tr><td>" + data[i].name + "<td><td></td></tr>";
+								    html = html + "<tr><td>" + data[i].name + "<td><td></td><td></td></tr>";
 							    }
-							}	
+							}
+							
+							var apples = info.fruit[0];
+							
+							html = "<tr><td>" + apples.name + "<td></tr>";
+	
 							
 							$("#food-table").html(html);
 						},

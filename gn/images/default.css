@@ -1,0 +1,161 @@
+/* Define */
+h1 {
+	font-size: 2.8em;	
+}
+h2, h3, h4 {
+	font-size: 2em;	
+}
+a {
+	text-decoration: none;
+}
+blockquote {
+	margin: 5px 20px;
+	padding: 5px;
+}
+blockquote p, code {
+	padding: 10px 20px;
+	display: block;
+}
+code {
+	display: block;
+	margin: 5px 20px;
+}
+strong, em, caption, th {
+	font-style: normal;
+	font-weight: bold;
+}
+cite {
+	font-style: italic;
+	font-weight: normal;
+}
+sub, sup {
+	font-size: .8em;
+}
+sub {
+	vertical-align: sub;
+}
+sup {
+	vertical-align: super;	
+}
+small {
+	font-size: 1em;
+}
+:focus {
+	outline: 1px #666 dotted;
+}
+input:focus, div:focus {
+	outline: 0;
+}
+input {
+	margin: 3px;
+	vertical-align: middle;
+}
+
+/* Layout */
+body {
+	font-size: 62.5%; /* Resets 1em to 10px */
+	color: #000;
+	background: #fff;
+	line-height: 1.4;
+}
+#wrapper , #bottom_frame , #top_frame , 
+#header , #container , #footer {
+	margin: 0 auto;
+}
+#header {
+	position: relative;
+}
+
+/* Wordpress */
+.entry p {
+	margin: 10px 0 10px 0; 
+}
+.entry ul {
+	padding-left: 20px;
+	list-style-type: square;
+}
+.entry ol {
+	padding-left: 25px;
+	list-style-type: decimal;
+}
+.entry h1, .entry h2, .entry h3, .entry h4, .entry h5, .entry h6 {
+	font-weight: bold;
+	margin: 5px 0;
+}
+acronym, abbr, span.caps {
+	font-size: 0.9em;
+	letter-spacing: .07em;
+	cursor: help;
+	border-bottom: 1px dashed #666;
+}
+.endline {
+	clear: both;
+}
+
+/* Images */
+p img {
+	max-width: 100%; /* not working in IE6 */
+}
+img.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+img.alignright {
+	padding: 4px;
+	margin: 0 0 2px 7px;
+	display: inline;
+}
+img.alignleft {
+	padding: 4px;
+	margin: 0 7px 2px 0;
+	display: inline;
+}
+.alignright {
+	float: right;
+}
+.alignleft {
+	float: left
+}
+
+
+/* Captions */
+.aligncenter, div.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+}
+.wp-caption img {
+	border: 0 none;
+}
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	color: #333;
+}
+
+/* Clear Fix */ 
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {
+	display: inline-block;
+}
+/* Hide from IE Mac \*/ 
+.clearfix {
+	display: block;
+}
+/* End hide from IE Mac */ 
+/* end of clearfix */

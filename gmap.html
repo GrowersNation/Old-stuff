@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Google Maps JavaScript API v3 Example: Ground Overlays</title>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map_canvas {
+  height: 100%;
+}
+
+@media print {
+  html, body {
+    height: auto;
+  }
+
+  #map_canvas {
+    height: 650px;
+  }
+}
+</style>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="proj4js-combined.js"></script>
+<script type="text/javascript">
+function initialize() {
+
+  var uk = new google.maps.LatLng(51.740, -2.18);
+ 
+  var myOptions = {
+    zoom: 6,
+    center: uk,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+      var imageBounds = map.getBounds();
+       var source = new Proj4js.Proj("EPSG:4326");    //source coordinates will be in Longitude/Latitude
+       var dest = new Proj4js.Proj("EPSG:900913");     //destination coordinates in LCC, south of France
+       var ne = imageBounds.getNorthEast();
+       var sw = imageBounds.getSouthWest();
+       
+       var pne = new Proj4js.Point(ne.lng(),ne.lat());   //any object will do as long as it has 'x' and 'y' properties
+       Proj4js.transform(source, dest, pne);
+     
+       var psw = new Proj4js.Point(sw.lng(),sw.lat());   //any object will do as long as it has 'x' and 'y' properties
+       Proj4js.transform(source, dest, psw);
+     
+       var soilmap = new google.maps.GroundOverlay(
+           "http://wms.isric.org/geoserver/wms?WIDTH=851&SRS=EPSG%3A900913&LAYERS=isric%3AWRB%20Map%20of%20World%20Soil%20Resources&HEIGHT=330&STYLES=&FORMAT=image%2Fpng&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&EXCEPTIONS=application%2Fvnd.ogc.se_inimage&BBOX="+psw.x+","+psw.y+","+pne.x+","+pne.y+"&transparent=true",
+           imageBounds);
+       soilmap.setMap(map);
+      });
+
+ 
+}
+</script>
+</head>
+<body onload="initialize()">
+  <div id="map_canvas"></div>
+</body>
+</html>
