@@ -1,0 +1,11 @@
+img {
+	display: block;
+	
+	width: 100%;
+}
+
+div#logo-holder {
+	width: 60%;
+	text-align: center;
+	margin: auto;
+}

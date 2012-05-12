@@ -1,0 +1,396 @@
+<body>
+	<head>
+		<script src="javascripts/jquery.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+		
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDbm_tgr-6BMbH6BxoG2Sl2U_YAGIESjII&sensor=true"></script>
+		<script src="javascripts/proj4js-combined.js"></script>
+		
+	</head>
+	
+	<body>
+		<div data-role="page" class="page-start" id="page-start" style="width:100%; height:100%;">
+			<div data-role="header" data-position="fixed" id="header"><a href="index.html" data-icon="home" class="ui-btn-left home">Home</a><h2>Growers Nation</h2></div>
+			
+			<div data-role="content">
+				<form action="" method="post">
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="location">Location:</label>
+						<input type="text" name="location" id="location" data-mini="true" placeholder="Location" />
+					</div>
+					
+					<input type="button" name="locationEntered" id="locationEntered" value="Search Location" />
+					<input type="button" name="defaultLocation" id="defaultLocation" value="Search Default Location" />
+				</form> 
+			</div>
+			
+			<div data-role="footer" data-position="fixed" id="toolbar"></div>
+		</div>
+		
+		<div data-role="page" class="page-map" id="page-map" style="width:100%; height:100%;">
+			<div data-role="header" id="map-header" style="display: none;"><a href="index.html" data-icon="home" class="ui-btn-left home">Home</a><h2>Growers Nation</h2></div>
+			
+			<div data-role="content" style="padding: 0; height: 100%" class="mapDiv content">
+				<div id="map" style="width:100%; height: 100%;"></div>
+			</div>
+			
+			<div data-role="footer" id="map-footer" class="ui-bar">
+				<div data-type="horizontal" data-role="controlgroup">
+					<a href="index.html" id="map-button" data-role="button" class="mapButton">Map</a>
+					<a href="index.html" id="crop-button" data-role="button" class="cropButton">Crops</a>
+				</div>
+			</div>
+		</div>
+		
+		<div data-role="page" class="page-crop" id="page-crop" style="width:100%; height:100%;">
+			<div data-role="header" id="map-header"><a href="#page-options" data-rel="dialog" data-icon="gear" class="ui-btn-right">Options</a><h2>Growers Nation</h2></div>
+			
+			<div data-role="content" style="padding: 0; height: 100%" class="mapDiv content">
+				<div class="monthNav">
+					<ul>
+						<li><a href="#" data-role="button">Jan</a></li>
+						<li><a href="#" data-role="button">Feb</a></li>
+						<li><a href="#" data-role="button">Mar</a></li>
+						<li><a href="#" data-role="button">Apr</a></li>
+						<li><a href="#" data-role="button">May</a></li>
+						<li><a href="#" data-role="button">Jun</a></li>
+						<li><a href="#" data-role="button">Jul</a></li>
+						<li><a href="#" data-role="button">Aug</a></li>
+						<li><a href="#" data-role="button">Sep</a></li>
+						<li><a href="#" data-role="button">Oct</a></li>
+						<li><a href="#" data-role="button">Nov</a></li>
+						<li><a href="#" data-role="button">Dec</a></li>
+					</ul>
+				</div>
+				<div id="data">
+					<table width="100%">
+						<thead>
+							<tr>
+								<th>
+									Fruits
+								</th>
+								<th>
+									Veg
+								</th>
+								<th>
+									Grain
+								</th>
+							</tr>
+						</thead>
+						<tbody id="food-table">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div data-role="footer" id="crop-footer" class="ui-bar">
+				<div data-type="horizontal" data-role="controlgroup">
+					<a href="index.html" id="map-button" data-role="button" class="mapButton">Map</a>
+					<a href="index.html" id="crop-button" data-role="button">Crops</a>
+				</div>
+			</div>
+		</div>
+		
+		<div data-role="page" class="page-options" id="page-options" style="width:100%; height:100%;">
+			<div data-role="header" id="map-header"><h2>Options</h2></div>
+			
+			<div data-role="content" style="padding: 0; height: 100%" class="mapDiv content">
+				<a href="#page-addVariety" id="crop-button" data-rel="dialog" data-role="button">Add Variety</a>
+				<a href="#page-addCrop" id="crop-button" data-rel="dialog" data-role="button">Add Crops</a>
+			</div>
+		</div>
+		
+		<div data-role="page" class="page-addCrop" id="page-addCrop" style="width:100%; height:100%;">
+			<div data-role="header">
+		        <h1>Add Crop</h1>
+		    </div>
+		    
+			<div data-role="content">
+				<form id="addCropForm" action="crops/add.php?method=post" method="post">
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="name">Name:</label>
+						<input type="text" name="name" id="name" data-mini="true" placeholder="name" />
+					</div>
+					
+					<input type="submit" name="addCrop" id="addCrop" value="Add Crop Type" />
+				</form> 
+			</div>
+		</div>
+		
+		<div data-role="page" class="page-addVariety" id="page-addVariety" style="width:100%; height:100%;">
+			<div data-role="header">
+		        <h1>Add Variety</h1>
+		    </div>
+		    
+			<div data-role="content">
+				<form id="addVarietyForm" action="variety/add.php?method=post" method="post">
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="name">Name:</label>
+						<input type="text" name="varietyName" id="varietyName" data-mini="true" placeholder="name" />
+					</div>
+					<div data-role="fieldcontain">
+						<label for="crop" class="inlineLabel">Variety Type:</label>
+						<select name="varietyCrop" id="varietyCrop" data-mini="true" placeholder="crop">
+						</select>
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="sunlight">Sunlight:</label>
+						<input type="text" name="varietySunlight" id="varietySunlight" data-mini="true" placeholder="sunlight" />
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="rainfall">Rainfall:</label>
+						<input type="text" name="varietyRainfall" id="varietyRainfall" data-mini="true" placeholder="rainfall" />
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="humidity">Humidity:</label>
+						<input type="text" name="varietyHumidity" id="varietyHumidity" data-mini="true" placeholder="humidity" />
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="soil">Soil:</label>
+						<input type="text" name="varietySoil" id="varietySoil" data-mini="true" placeholder="soil" />
+					</div>
+					
+					<input type="submit" name="addVariety" id="addVariety" value="Add Variety" />
+				</form> 
+			</div>
+		</div>
+		
+		<style type="text/css">
+		      html { height: 100% }
+		      body { height: 100%; margin: 0; padding: 0; overflow: hidden;}
+		      #map {width: 100%; height: 100%;}
+		      
+		      #map-footer {
+		      	position: fixed;
+		      	width: 100%;
+		      	bottom: 0px;
+		      	background-color: #000;
+		      	height: 40px;
+		      }
+		</style>
+		
+		<script type="text/javascript">
+			var center;
+			var map = null;
+			var loc = null;
+			var geocoder = null;
+			var marker = null;
+			
+			$(document).ready(function() {
+				geocoder = new google.maps.Geocoder();
+				
+				$(document).bind("pagechange", onPageChange);
+			
+				$("input[name='locationEntered']").click(function() {
+					loc = $("input[name='location']").val();
+					changeToMap();
+					return false;
+				});
+				
+				$("input[name='defaultLocation']").click(function() {
+					changeToMap();
+					return false;
+				});
+				
+				$(".map").click(function() {
+					$.mobile.changePage($("#page-map"));
+					return false;
+				});
+				
+				$(".homeButton").click(function() {
+					changeToHome();
+					return false;
+				});
+				
+				$(".cropButton").click(function() {
+					changeToCrop();
+					return false;
+				});
+				
+				$("input[name='addCrop']").click(function() {
+					var action = $("#addCropForm").attr("action");
+					
+					$.ajax({url: action,
+							data: {
+								name: $("input[name='name']").val()
+							},
+							success: function() {
+								$('.ui-dialog').dialog('close');
+								$("input[name='name']").val();
+							},
+							type: "post"
+					});
+					
+					return false;
+				});
+				
+				$("input[name='addVariety']").click(function() {
+					var action = $("#addVarietyForm").attr("action");
+					
+					$.ajax({url: action,
+							data: {
+								name: $("input[name='varietyName']").val(),
+								crop: $("select[name='varietyCrop']").val(),
+								sunlight: $("input[name='varietySunlight']").val(),
+								rainfall: $("input[name='varietyRainfall']").val(),
+								humidity: $("input[name='varietyHumidity']").val(),
+								soil: $("input[name='varietySoil']").val()
+							},
+							success: function() {
+								$('.ui-dialog').dialog('close');
+								
+								$("input[name='varietyName']").val();
+								$("input[name='varietyCrop']").val();
+								$("input[name='varietySunlight']").val();
+								$("input[name='varietyRainfall']").val();
+								$("input[name='varietyHumidity']").val();
+								$("input[name='varietySoil']").val();
+							},
+							type: "post"
+					});
+					
+					return false;
+				});
+				
+				$.ajax({url: "crops/get.php",
+					dataType: "JSON",
+					success: function(data) {
+						var html = "";
+						
+						for (var i = 0; i < data.length; i++) {
+						    html = html + '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+						}
+
+						
+						$("#varietyCrop").html(html);
+					},
+					type: "post"
+				});
+			});
+			
+			function initMap(lat,lng) {
+				center = new google.maps.LatLng(lat,lng);
+				var myOptions = {
+					zoom: 8,
+					center: center,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+				
+				map = new google.maps.Map(document.getElementById("map"), myOptions);
+				
+				google.maps.event.addListener(map, 'bounds_changed', function() {
+			    	var imageBounds = map.getBounds();
+			       	var source = new Proj4js.Proj("EPSG:4326");    //source coordinates will be in Longitude/Latitude
+			       	var dest = new Proj4js.Proj("EPSG:900913");     //destination coordinates in LCC, south of France
+			       	var ne = imageBounds.getNorthEast();
+			       	var sw = imageBounds.getSouthWest();
+			       
+			       	var pne = new Proj4js.Point(ne.lng(),ne.lat());   //any object will do as long as it has 'x' and 'y' properties
+			       	Proj4js.transform(source, dest, pne);
+			     
+			       	var psw = new Proj4js.Point(sw.lng(),sw.lat());   //any object will do as long as it has 'x' and 'y' properties
+			       	Proj4js.transform(source, dest, psw);
+			     
+			       	var soilmap = new google.maps.GroundOverlay(
+			       		"http://wms.isric.org/geoserver/wms?WIDTH=851&SRS=EPSG%3A900913&LAYERS=isric%3AWRB%20Map%20of%20World%20Soil%20Resources&HEIGHT=330&STYLES=&FORMAT=image%2Fpng&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&EXCEPTIONS=application%2Fvnd.ogc.se_inimage&BBOX="+psw.x+","+psw.y+","+pne.x+","+pne.y+"&transparent=true",
+			           	imageBounds
+			        );
+			       
+			        soilmap.setMap(map);
+			    });
+				
+				google.maps.event.addListener(map, 'click', function(e) {
+				    $("#map-header").slideDown();
+				    $("#map-footer").fadeIn();
+				    
+				    if(marker == null) {
+				    	 marker = new google.maps.Marker({
+							position: e.latLng,
+							map: map
+						});
+		  			}
+		  			else {
+		  				marker.setPosition(e.latLng);
+		  			}
+				    
+				    window.setTimeout(function() {
+						$("#map-header").slideUp();
+						$("#map-footer").fadeOut();
+					}, 5000);
+				});
+			}
+			
+			function detectBrowser() {
+				var useragent = navigator.userAgent;
+				var mapdivMap = document.getElementById("map");
+				
+				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+					mapdivMap.style.width = '600';
+					mapdivMap.style.height = '800';
+				} 
+				else {
+					mapdivMap.style.width = '100%';
+					mapdivMap.style.height = $(document).height() + 'px';
+				}
+			};
+			
+			function changeToHome() {
+				$.mobile.changePage($("#page-start"));
+			}
+			
+			function changeToMap() {
+				$.mobile.changePage($("#page-map"));
+			}
+			
+			function changeToCrop() {
+				$.mobile.changePage($("#page-crop"));
+			}
+			
+			function onPageChange(toPage, options) {		
+				var page = options.toPage.attr("id");
+				
+				if(page == "page-map") {
+					if(loc != null) {
+						detectBrowser();
+						geocoder.geocode( { 'address': loc}, function(results, status) {
+			      			if (status == google.maps.GeocoderStatus.OK) {
+			        			initMap(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+			      			} else {
+			        			alert("Geocode was not successful for the following reason: " + status);
+			      			}
+			    		});
+					}
+					else {
+						detectBrowser();
+						initMap(51.4756, -3.1781);
+					}
+				}
+				
+				if(page == "page-crop") {
+					$.ajax({url: "variety/get.php",
+						dataType: "JSON",
+						success: function(data) {
+							var html = "";
+							
+							var info = {fruit: [], veg: [], grain: []};
+							var html = "";
+							
+							for (var i = 0; i < data.length; i++) {
+							    if(data[i].crop == "1") {
+								    html = html + "<tr><td>" + data[i].name + "<td><td></td></tr>";
+							    }
+							}	
+							
+							$("#food-table").html(html);
+						},
+						type: "post"
+					});
+				}
+			}
+		</script>
+	</body>
+</html>

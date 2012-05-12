@@ -1,0 +1,69 @@
+.tool-link {
+	float: right;
+}
+
+.ui-li-heading {
+	height: 40px;
+	line-height: 40px;
+}
+
+#location-summary {
+	background: #A0E0A0;
+	
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	
+	padding: 10px;
+	
+	color: #666;
+}
+
+#location-summary h3 {
+	margin: 0px;
+	color: #787878;
+}
+
+#location-summary dl dt {
+	float: left;
+	width: 60px;
+}
+
+#logo {
+	display: block;
+	width: 40%;
+	
+	margin-left: -15px;
+}
+
+#sow {
+	background: url(../images/sow.png) repeat-x left center;
+}
+
+#cultivate {
+	background: url(../images/cultivate.png) repeat-x left center;
+}
+
+#harvest {
+	background: url(../images/harvest.png) repeat-x left center;
+}
+
+.exampleImages {
+	-moz-box-shadow: inset 0 0 5px 5px #888;
+	-webkit-box-shadow: inset 0 0 5px 5px#888;
+	box-shadow: inset 0 0 5px 5px #888;
+	
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	
+	padding: 10px;
+	
+	text-align: center;
+}
+
+td {
+	text-align: center;
+}
+
+tr.timePeriod {
+	height: 10px;
+}

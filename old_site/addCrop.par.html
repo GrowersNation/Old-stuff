@@ -1,0 +1,24 @@
+<html>
+	<head>
+		
+	</head>
+	
+	<body>
+		<div data-role="page" class="page-start" id="page-start" style="width:100%; height:100%;">
+			<div data-role="header">
+		        <h1>Add Crop</h1>
+		    </div>
+		    
+			<div data-role="content">
+				<form action="variety/add.php?method=post" method="post">
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="name">Name:</label>
+						<input type="text" name="name" id="name" data-mini="true" placeholder="name" />
+					</div>
+					
+					<input type="submit" name="addCrop" id="addVariety" value="Search Default Location" />
+				</form> 
+			</div>
+		</div>
+	</body>
+</html>

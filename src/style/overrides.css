@@ -1,0 +1,7 @@
+.ui-page {
+	background: #FEFEFC ! important;
+}
+
+input.ui-input-text, textarea.ui-input-text {
+	width: 100% ! important;
+}
